@@ -11,8 +11,9 @@ const cardPicture = [
     '../assets/sheep.jpg',
     '../assets/turtle.jpg'
 ]
-
 const doubleImages = [...cardPicture, ...cardPicture]
+
+const selectedImage = []
 
 for (let i = 0; i < card.length; i++) {
     card[i].addEventListener("click", function flipCard() {
@@ -25,8 +26,25 @@ for (let i = 0; i < card.length; i++) {
         image.style.height = "100px";
         card[i].appendChild(image);
 
+        selectedImage.push(initialImage);
+
+        if (selectedImage.length == 2) {
+            matchCards();
+        }
+
     })
 };
+
+function matchCards() {
+
+    if (selectedImage.length == 2) {
+        if (selectedImage[0] === selectedImage[1]) {
+            console.log("its a match")
+        }
+    }
+
+}
+
 
 
 
