@@ -13,7 +13,8 @@ const cardPicture = [
 ]
 const doubleImages = [...cardPicture, ...cardPicture]
 
-const selectedImage = []
+const selectedImage = [];
+const matchedImages = [];
 
 for (let i = 0; i < card.length; i++) {
     card[i].addEventListener("click", function flipCard() {
@@ -26,27 +27,38 @@ for (let i = 0; i < card.length; i++) {
         image.style.height = "100px";
         card[i].appendChild(image);
 
-        selectedImage.push(initialImage);
+        selectedImage.push({ src: initialImage, index: i });
 
         if (selectedImage.length == 2) {
             matchCards();
         }
-
     })
+
 };
 
 function matchCards() {
-
     if (selectedImage.length == 2) {
-        if (selectedImage[0] === selectedImage[1]) {
-            console.log("its a match")
+        if (selectedImage[0].src === selectedImage[1].src) {
+            alert("its a match");
+            matchedImages.push(...selectedImage);
+            selectedImage.splice(0, 2)
+        } else {
+            alert("its not a match")
+            setTimeout(() => {
+                resetCards(selectedImage[0].index, selectedImage[1].index);
+            }, 2000);
         }
     }
-
 }
 
+function resetCards(first, second) {
+    let card1 = card[first];
+    let card2 = card[second];
 
-
+    card1.removeChild(card1.lastChild);
+    card2.removeChild(card2.lastChild);
+    selectedImage.splice(0, 2);
+}
 
 
 
