@@ -13,6 +13,16 @@ const cardPicture = [
 ]
 const doubleImages = [...cardPicture, ...cardPicture]
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+let shuffleImages = shuffle(doubleImages);
+
 const selectedImage = [];
 const matchedImages = [];
 
@@ -20,7 +30,7 @@ for (let i = 0; i < card.length; i++) {
     card[i].addEventListener("click", function flipCard() {
 
         const image = document.createElement("img");
-        const initialImage = doubleImages[i];
+        const initialImage = shuffleImages[i];
 
         image.src = initialImage;
         image.style.width = "100px";
@@ -59,6 +69,8 @@ function resetCards(first, second) {
     card2.removeChild(card2.lastChild);
     selectedImage.splice(0, 2);
 }
+
+
 
 
 
